@@ -1,0 +1,23 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  background-color: #dcf3ff
+}
+
+.bg-dark-blue {
+  background-color: #257ca3;
+}
+
+.btn-dark-blue {
+  color: #fff;
+  background-color: #257ca3;
+  border-color: #257ca3;
+}
+
+.btn-light-blue {
+  color: #000;
+  background-color: #dcf3ff;
+  border-color: #dcf3ff;
+}
