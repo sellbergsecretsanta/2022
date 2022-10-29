@@ -117,9 +117,28 @@ function Home(props) {
         return {successful: true, updatedUsers: users};
     }
 
+    const handleReset = async () => {
+        setIsSaving(true);
+
+        const users = await getUsers();
+        let updatedUsers = reset(users);
+
+        updateUserData(updatedUsers);
+    }
+
+    const reset = (users) => {
+        users = users.map(p => ({
+            ...p, secretsanta: null
+        }));
+
+        return users;
+    }
+
     return(
         <div className="card col-md-6 col-sm-12 mt-4 p-3">
-            <p className="mt-2">Skriv minst en sak du önskar dig</p>
+            <p className="mt-2">Frivillig önskelista! <br />
+                Önskar du dig inget speciellt? Skriv "överraskning"
+            </p>
             {currentUser && (
                 <div className="row">
                     <div className="col-12">
@@ -144,10 +163,20 @@ function Home(props) {
                 </div>
             )}
             {localStorage.getItem(ACCESS_TOKEN_NAME) === "0" && (
-                <button
-                    className="btn btn-dark-blue mr-3"
-                    onClick={() => {if(window.confirm('Vill du slumpa secret santa?')){handleRandomize()};}}>Assign secret santa
-                </button>
+                <div className="row mt-3">
+                    <div className="col-6">
+                        <button
+                            className="btn btn-dark-blue"
+                            onClick={() => {if(window.confirm('Vill du slumpa secret santa?')){handleRandomize()};}}>Assign secret santa
+                        </button>
+                    </div>
+                    <div className="col-6">
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => {if(window.confirm('Vill nollställa secret santa?')){handleReset()};}}>Reset secret santa
+                        </button>
+                    </div>
+                </div>
             )}
         </div>
     )
