@@ -34,10 +34,11 @@ function LoginForm(props) {
             "password":state.password,
         }
 
-        axios.get(API_BASE_URL + "/619bead00ddbee6f8b104f1b")
+        axios.get(API_BASE_URL + "/634b1cf92b3499323bdfd5de")
             .then(function (response) {
+                console.log(response);
                 if(response.status === 200){
-                    let user = response.data.find(x => x.username === payload.username.trim().toLowerCase());
+                    let user = response.data.record.find(x => x.username === payload.username.trim().toLowerCase());
 
                     if (!user) {
                         props.showError("Username does not exists");
@@ -66,9 +67,9 @@ function LoginForm(props) {
     }
 
     const getUsers = async () => {
-        axios.get(API_BASE_URL + "/619beb2f62ed886f91531862/latest")
+        axios.get(API_BASE_URL + "/634b1ec265b57a31e6979cee/latest")
             .then(function (response) {
-                let tempArr = response.data;
+                let tempArr = []; // = response.data.record;
 
                 for (let i = tempArr.length - 1; i > 0; i--) {
                     let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
@@ -85,13 +86,13 @@ function LoginForm(props) {
                     console.log(p.secretsanta);
                 });
 
-                /* response.data.forEach(p => {
+                response.data.record.forEach(p => {
                     if (p.lastUpdated && p.wishlist !== "") {
                         tempArr.push({lastUpdated: moment(p.lastUpdated).format("YYYY-MM-DD kk:mm"), name: p.name});
                     }
                 });
 
-                setWishlistUpdated(tempArr.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated))); */
+                setWishlistUpdated(tempArr.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)));
             })
             .catch(function (error) {
                 console.log(error);

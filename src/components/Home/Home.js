@@ -19,13 +19,13 @@ function Home(props) {
     }
 
     const getCurrentUser = () => {
-        axios.get(API_BASE_URL + "/619beb2f62ed886f91531862/latest")
+        axios.get(API_BASE_URL + "/634b1ec265b57a31e6979cee/latest")
             .then(function (response) {
                 if(response.status !== 200){
                     redirectToLogin()
                 }
 
-                let user = response.data.find(x => x.id === parseInt(localStorage.getItem(ACCESS_TOKEN_NAME)));
+                let user = response.data.record.find(x => x.id === parseInt(localStorage.getItem(ACCESS_TOKEN_NAME)));
 
                 if(!user) {
                     redirectToLogin()
@@ -34,7 +34,7 @@ function Home(props) {
                     setCurrentUser(user);
 
                     if (user.secretsanta !== undefined && user.secretsanta !== null) {
-                        setSecretSanta(response.data.find(x => x.id === user.secretsanta));
+                        setSecretSanta(response.data.record.find(x => x.id === user.secretsanta));
                     }
                 }
             })
@@ -44,9 +44,9 @@ function Home(props) {
     }
 
     const getUsers = async () => {
-        return await axios.get(API_BASE_URL + "/619beb2f62ed886f91531862/latest")
+        return await axios.get(API_BASE_URL + "/634b1ec265b57a31e6979cee/latest")
             .then(function (response) {
-                return response.data;
+                return response.data.record;
             })
             .catch(function (error) {
                 console.log(error);
@@ -54,7 +54,7 @@ function Home(props) {
     }
 
     const updateUserData = (updatedUsers) => {
-        axios.put(API_BASE_URL + "/619beb2f62ed886f91531862", updatedUsers)
+        axios.put(API_BASE_URL + "/634b1ec265b57a31e6979cee ", updatedUsers)
             .then(function (response) {
                 setIsSaving(false);
                 getCurrentUser();

@@ -1,7 +1,7 @@
 {
-  "name": "2021",
+  "name": "2022",
   "version": "0.1.0",
-  "homepage": "http://sellbergsecretsanta.github.io/2021",
+  "homepage": "http://sellbergsecretsanta.github.io/2022",
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.16.3",
