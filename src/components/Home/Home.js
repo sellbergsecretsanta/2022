@@ -22,13 +22,17 @@ function Home(props) {
         axios.get(API_BASE_URL + "/634b1ec265b57a31e6979cee/latest")
             .then(function (response) {
                 if(response.status !== 200){
-                    redirectToLogin()
+                    redirectToLogin();
                 }
 
                 let user = response.data.record.find(x => x.id === parseInt(localStorage.getItem(ACCESS_TOKEN_NAME)));
 
                 if(!user) {
-                    redirectToLogin()
+                    if (localStorage.getItem(ACCESS_TOKEN_NAME)) {
+                        props.history.push('/wishlist');
+                    } else {
+                        redirectToLogin();
+                    }
                 }
                 else {
                     setCurrentUser(user);
@@ -136,19 +140,21 @@ function Home(props) {
 
     return(
         <div className="card col-md-6 col-sm-12 mt-4 p-3">
-            <p className="mt-2">Frivillig önskelista! <br />
-                Önskar du dig inget speciellt? Skriv "överraskning"
-            </p>
             {currentUser && (
-                <div className="row">
-                    <div className="col-12">
-                        <Textarea
-                            wishlistText={currentUser.wishlist}
-                            onSaveWishlist={(text) => saveWishlist(text)}
-                            isSaving={isSaving}
-                        />
+                <>
+                    <p className="mt-2">Frivillig önskelista! <br />
+                        Önskar du dig inget speciellt? Skriv "överraskning"
+                    </p>
+                    <div className="row">
+                        <div className="col-12">
+                            <Textarea
+                                wishlistText={currentUser.wishlist}
+                                onSaveWishlist={(text) => saveWishlist(text)}
+                                isSaving={isSaving}
+                            />
+                        </div>
                     </div>
-                </div>
+                </>
             )}
 
             {secretSanta && (
@@ -162,7 +168,7 @@ function Home(props) {
                     </div>
                 </div>
             )}
-            {localStorage.getItem(ACCESS_TOKEN_NAME) === "0" && (
+            {currentUser && localStorage.getItem(ACCESS_TOKEN_NAME) === "0" && (
                 <div className="row mt-3">
                     <div className="col-6">
                         <button

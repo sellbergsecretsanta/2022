@@ -10,6 +10,8 @@ import {
   Route
 } from "react-router-dom";
 import AlertComponent from './components/AlertComponent/AlertComponent';
+import ChildWishlist from './components/ChildWishlist/ChildWishlist';
+
 function App() {
   const [title, updateTitle] = useState(null);
   const [errorMessage, updateErrorMessage] = useState(null);
@@ -27,6 +29,9 @@ function App() {
             </Route>
             <PrivateRoute path="/home">
               <Home/>
+            </PrivateRoute>
+            <PrivateRoute path="/wishlist">
+              <ChildWishlist/>
             </PrivateRoute>
           </Switch>
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>

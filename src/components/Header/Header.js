@@ -9,9 +9,19 @@ function Header(props) {
     } */
 
     function renderLogout() {
-        if(props.location.pathname === '/home'){
+        if (props.location.pathname === '/home') {
             return(
-                <button className="btn btn-danger" onClick={() => handleLogout()}>Logga ut</button>
+                <>
+                    <button className="btn btn-primary mr-2" onClick={() => props.history.push('/wishlist')}>Barnens önskelista</button>
+                    <button className="btn btn-danger" onClick={() => handleLogout()}>Logga ut</button>
+                </>
+            )
+        } else if (props.location.pathname === '/wishlist'){
+            return(
+                <>
+                    <button className="btn btn-primary mr-2" onClick={() => props.history.push('/home')}>Secret Santa</button>
+                    <button className="btn btn-danger" onClick={() => handleLogout()}>Logga ut</button>
+                </>
             )
         }
     }
