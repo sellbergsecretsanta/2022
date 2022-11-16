@@ -14,7 +14,7 @@ function Wishlist(props) {
     }
 
     return(
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Group className="mb-3 card-body" controlId="exampleForm.ControlTextarea1">
             <h4>{props.child.name}</h4>
             <div className="ml-4">
