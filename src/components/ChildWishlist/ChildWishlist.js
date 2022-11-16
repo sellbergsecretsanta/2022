@@ -40,7 +40,7 @@ function ChildWishlist(props) {
 
         const oldData = [...childWishlists];
         const filtered = [...oldData].filter(x => x.id === childId);
-        const newId = Math.max(...filtered[0].wishlist.map(p => p.id));
+        const newId = [...filtered[0].wishlist].length > 0 ? Math.max(...filtered[0].wishlist.map(p => p.id)) : 0;
 
         const newItem = {
             "id": newId + 1,
